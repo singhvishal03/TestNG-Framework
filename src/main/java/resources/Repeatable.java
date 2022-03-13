@@ -4,17 +4,21 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 public class Repeatable {
-   public WebDriver driver;
+    public WebDriver driver;
+    public Properties properties;
+    public FileInputStream file;
 
     public WebDriver initialiseDriver() throws IOException {
-        Properties properties = new Properties();
-        FileInputStream file = new FileInputStream("D://Projects//E2Eproject//src//main//java//resources//data.properties");
+
+        file = new FileInputStream("D://Projects//E2Eproject//src//main//java//resources//data.properties");
+        properties = new Properties();
         properties.load(file);
         String browserName = properties.getProperty("browser");
 
@@ -33,5 +37,12 @@ public class Repeatable {
 
         driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
         return driver;
+    }
+
+    public String getURL() throws IOException {
+        properties = new Properties();
+        file = new FileInputStream("D://Projects//E2Eproject//src//main//java//resources//data.properties");
+        properties.load(file);
+        return properties.getProperty("url");
     }
 }

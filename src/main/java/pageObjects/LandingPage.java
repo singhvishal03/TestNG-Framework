@@ -16,8 +16,7 @@ public class LandingPage {
     }
 
     //Methods
-    public WebElement getLogIn()
-    {
+    public WebElement getLogIn() {
         return driver.findElement(logIn);
     }
 }
