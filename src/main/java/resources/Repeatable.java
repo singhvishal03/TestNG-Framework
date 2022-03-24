@@ -7,8 +7,8 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.time.Duration;
 import java.util.Properties;
-import java.util.concurrent.TimeUnit;
 
 public class Repeatable {
     public WebDriver driver;
@@ -35,7 +35,7 @@ public class Repeatable {
             driver = new EdgeDriver();
         }
 
-        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
         return driver;
     }
 

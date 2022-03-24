@@ -1,5 +1,7 @@
 package E2Eproject;
 
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import pageObjects.LandingPage;
@@ -10,12 +12,17 @@ import java.io.IOException;
 
 public class HomePage extends Repeatable {
 
-    @Test(dataProvider="getData")
-    public void homePageNavigation(String userName, String password) throws IOException {
+    @BeforeTest
+    public void initialise() throws IOException {
         driver = initialiseDriver();
-        driver.get(getURL());
         driver.manage().window().maximize();
+    }
 
+
+    @Test(dataProvider = "getData")
+    public void homePageNavigation(String userName, String password) throws IOException {
+
+        driver.get(getURL());
         //invoking Landing Page Methods/Objects
         new LandingPage(driver).getLogIn().click();
 
@@ -25,10 +32,14 @@ public class HomePage extends Repeatable {
         new LogInPage(driver).logIn().click();
     }
 
+    @AfterTest
+    public void tearDown()
+    {
+        driver.close();
+    }
 
     @DataProvider
-    public Object[][] getData()
-    {
+    public Object[][] getData() {
         Object[][] data = new Object[2][2];
         //rows are for number of different data types test should run
         //column is for how many values for each test
@@ -40,4 +51,5 @@ public class HomePage extends Repeatable {
 
         return data;
     }
+
 }
