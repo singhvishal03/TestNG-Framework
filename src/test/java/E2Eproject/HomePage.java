@@ -1,5 +1,7 @@
 package E2Eproject;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
@@ -11,10 +13,13 @@ import resources.Repeatable;
 import java.io.IOException;
 
 public class HomePage extends Repeatable {
+    private static final Logger log = LogManager.getLogger(Repeatable.class.getName());
+
 
     @BeforeTest
     public void initialise() throws IOException {
         driver = initialiseDriver();
+        log.info("Driver Initialised Successfully");
         driver.manage().window().maximize();
     }
 
@@ -23,10 +28,12 @@ public class HomePage extends Repeatable {
     public void homePageNavigation(String userName, String password) throws IOException {
 
         driver.get(getURL());
+        log.info("Navigated to URL : " + getURL());
         //invoking Landing Page Methods/Objects
         new LandingPage(driver).getLogIn().click();
 
         //invoking Login Page Methods/Objects
+        log.info("Logging in");
         new LogInPage(driver).getEmail().sendKeys(userName);
         new LogInPage(driver).getPassword().sendKeys(password);
         new LogInPage(driver).logIn().click();
@@ -36,6 +43,7 @@ public class HomePage extends Repeatable {
     public void tearDown()
     {
         driver.close();
+        log.info("Driver Closed Successfully");
     }
 
     @DataProvider
