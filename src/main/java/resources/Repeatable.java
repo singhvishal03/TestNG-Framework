@@ -53,7 +53,7 @@ public class Repeatable {
     public void getScreenshot(String testCaseName, WebDriver driver) throws IOException {
         TakesScreenshot screenshot = (TakesScreenshot) driver;
         File source = screenshot.getScreenshotAs(OutputType.FILE);
-        String destinationFile = System.getProperty("user.dir") + "//Reports//" + testCaseName + ".png";
+        String destinationFile = System.getProperty("user.dir") + "//reports//" + testCaseName + ".png";
         FileUtils.copyFile(source, new File(destinationFile));
     }
 }
