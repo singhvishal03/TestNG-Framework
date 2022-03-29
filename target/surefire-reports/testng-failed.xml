@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 <suite name="Failed suite [All Test Suite]" guice-stage="DEVELOPMENT" verbose="0">
+  <listeners>
+    <listener class-name="E2Eproject.Listeners"/>
+  </listeners>
   <test thread-count="5" name="D:/Projects/E2Eproject(failed)" verbose="0">
     <classes>
       <class name="E2Eproject.HomePage">
         <methods>
-          <include name="homePageNavigation" invocation-numbers="1"/>
+          <include name="homePageNavigation" invocation-numbers="0"/>
           <include name="tearDown"/>
           <include name="initialise"/>
         </methods>

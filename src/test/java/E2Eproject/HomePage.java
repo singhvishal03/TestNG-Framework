@@ -2,6 +2,7 @@ package E2Eproject;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
@@ -13,13 +14,14 @@ import resources.Repeatable;
 import java.io.IOException;
 
 public class HomePage extends Repeatable {
-    private static final Logger log = LogManager.getLogger(Repeatable.class.getName());
+    public WebDriver driver;
+    private static final Logger log = LogManager.getLogger(HomePage.class.getName());
 
 
     @BeforeTest
     public void initialise() throws IOException {
         driver = initialiseDriver();
-        log.info("Driver Initialised Successfully");
+        log.fatal("Driver Initialised Successfully");
         driver.manage().window().maximize();
     }
 
@@ -33,7 +35,7 @@ public class HomePage extends Repeatable {
         new LandingPage(driver).getLogIn().click();
 
         //invoking Login Page Methods/Objects
-        log.info("Logging in");
+        log.trace("Logging in");
         new LogInPage(driver).getEmail().sendKeys(userName);
         new LogInPage(driver).getPassword().sendKeys(password);
         new LogInPage(driver).logIn().click();

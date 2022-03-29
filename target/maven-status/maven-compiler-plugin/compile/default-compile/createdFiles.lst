@@ -1,0 +1,3 @@
+pageObjects\LogInPage.class
+pageObjects\LandingPage.class
+resources\Repeatable.class
