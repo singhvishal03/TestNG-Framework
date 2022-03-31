@@ -1,29 +1,33 @@
 package E2Eproject;
 
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.Status;
 import org.openqa.selenium.WebDriver;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
-import resources.Repeatable;
-
-import java.io.IOException;
+import resources.GenerateReport;
 
 public class Listeners extends HomePage implements ITestListener {
+    public ExtentReports report;
+    public ExtentTest test;
+
     @Override
     public void onTestStart(ITestResult result) {
-        ITestListener.super.onTestStart(result);
+        report = GenerateReport.getReportObject();
+        test = report.createTest(result.getMethod().getMethodName());
     }
 
     @Override
     public void onTestSuccess(ITestResult result) {
-        ITestListener.super.onTestSuccess(result);
+        test.log(Status.PASS, "Test Case passed successfully");
     }
 
     @Override
     public void onTestFailure(ITestResult result) {
-//       ITestListener.super.onTestFailure(result);
         String testCaseName = result.getMethod().getMethodName();
-
+        test.fail(result.getThrowable());
         try {
             WebDriver driver = (WebDriver) result.getTestClass().getRealClass().getDeclaredField("driver").get(result.getInstance());
             getScreenshot(testCaseName, driver);
@@ -54,6 +58,6 @@ public class Listeners extends HomePage implements ITestListener {
 
     @Override
     public void onFinish(ITestContext context) {
-        ITestListener.super.onFinish(context);
+        report.flush();
     }
 }

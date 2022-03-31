@@ -8,7 +8,7 @@
     <classes>
       <class name="E2Eproject.HomePage">
         <methods>
-          <include name="homePageNavigation" invocation-numbers="0"/>
+          <include name="homePageNavigation" invocation-numbers="1"/>
           <include name="tearDown"/>
           <include name="initialise"/>
         </methods>
