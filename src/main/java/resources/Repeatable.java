@@ -7,6 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import io.github.bonigarcia.wdm.WebDriverManager;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -18,24 +19,26 @@ public class Repeatable {
     public WebDriver driver;
     public Properties properties;
     public FileInputStream file;
+    String configFile;
 
     public WebDriver initialiseDriver() throws IOException {
 
-        file = new FileInputStream("D://Projects//E2Eproject//src//main//java//resources//data.properties");
+        configFile = System.getProperty("user.dir") + "//src//main//java//resources//data.properties";
+        file = new FileInputStream(configFile);
         properties = new Properties();
         properties.load(file);
         String browserName = properties.getProperty("browser");
 
         if (browserName.equalsIgnoreCase("chrome")) {
-            System.setProperty("webdriver.chrome.driver", "D://Projects//SeleniumDriver//chromedriver.exe");
+            WebDriverManager.chromedriver().setup();
             driver = new ChromeDriver();
 
         } else if (browserName.equalsIgnoreCase("mozilla")) {
-            System.setProperty("webdriver.gecko.driver", "D://Projects//SeleniumDriver//geckodriver.exe");
+            WebDriverManager.firefoxdriver().setup();
             driver = new FirefoxDriver();
 
         } else if (browserName.equalsIgnoreCase("edge")) {
-            System.setProperty("webdriver.edge.driver", "D://Projects//SeleniumDriver//msedgedriver.exe");
+            WebDriverManager.edgedriver().setup();
             driver = new EdgeDriver();
         }
 
@@ -45,15 +48,17 @@ public class Repeatable {
 
     public String getURL() throws IOException {
         properties = new Properties();
-        file = new FileInputStream("D://Projects//E2Eproject//src//main//java//resources//data.properties");
+        file = new FileInputStream(configFile);
         properties.load(file);
         return properties.getProperty("url");
     }
 
-    public void getScreenshot(String testCaseName, WebDriver driver) throws IOException {
+    public String getScreenshot(String testCaseName, WebDriver driver) throws IOException {
         TakesScreenshot screenshot = (TakesScreenshot) driver;
         File source = screenshot.getScreenshotAs(OutputType.FILE);
-        String destinationFile = System.getProperty("user.dir") + "//reports//" + testCaseName + ".png";
+        String destinationFile = System.getProperty("user.dir") + "//Reports//" + testCaseName + ".png";
         FileUtils.copyFile(source, new File(destinationFile));
+
+        return destinationFile;
     }
 }

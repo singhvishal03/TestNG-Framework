@@ -4,7 +4,7 @@
     <listeners>
         <listener class-name="E2Eproject.Listeners"/>
     </listeners>
-    <test verbose="2" preserve-order="true" name="D:/Projects/E2Eproject">
+    <test verbose="2" name="D:/Projects/E2Eproject">
         <classes>
             <class name="E2Eproject.HomePage">
                 <methods>
