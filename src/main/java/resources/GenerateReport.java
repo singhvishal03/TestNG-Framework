@@ -8,7 +8,7 @@ public class GenerateReport {
 
     @BeforeTest
     public static ExtentReports getReportObject() {
-        String destination = System.getProperty("user.dir") + "//Reports";
+        String destination = System.getProperty("user.dir") + "//reports";
         //configuring the report
         ExtentSparkReporter reporter = new ExtentSparkReporter(destination);
         reporter.config().setDocumentTitle("Automated Test Case Results");
