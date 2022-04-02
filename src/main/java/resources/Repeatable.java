@@ -27,13 +27,17 @@ public class Repeatable {
         file = new FileInputStream(configFile);
         properties = new Properties();
         properties.load(file);
-        String browserName = properties.getProperty("browser");
+
+
+        //mvn test -DBrowser="browser name" (to run from maven )
+        String browserName = System.getProperty("browser");
+        //String browserName = properties.getProperty("browser");
 
         if (browserName.equalsIgnoreCase("chrome")) {
             WebDriverManager.chromedriver().setup();
             driver = new ChromeDriver();
 
-        } else if (browserName.equalsIgnoreCase("mozilla")) {
+        } else if (browserName.equalsIgnoreCase("firefox")) {
             WebDriverManager.firefoxdriver().setup();
             driver = new FirefoxDriver();
 
