@@ -1,2 +1,2 @@
 # TestNG-Framework
-Automation testing Framework using TestNG
+TestNG framwork with Maven and Jenkins
