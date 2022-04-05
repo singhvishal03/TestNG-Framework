@@ -30,20 +30,24 @@ public class HomePage extends Repeatable {
     public void homePageNavigation(String userName, String password) throws IOException {
 
         driver.get(getURL());
-        log.info("Navigated to URL : " + getURL());
+        log.trace("Navigated to URL : " + getURL());
         //invoking Landing Page Methods/Objects
-        new LandingPage(driver).getLogIn().click();
+        LandingPage landingPage = new LandingPage(driver);
+        if (landingPage.getPopUpSize().size() > 0) {
+            landingPage.getPopUp().click();
+        }
+        landingPage.getLogIn().click();
 
         //invoking Login Page Methods/Objects
         log.trace("Logging in");
-        new LogInPage(driver).getEmail().sendKeys(userName);
-        new LogInPage(driver).getPassword().sendKeys(password);
-        new LogInPage(driver).logIn().click();
+        LogInPage logInPage = new LogInPage(driver);
+        logInPage.getEmail().sendKeys(userName);
+        logInPage.getPassword().sendKeys(password);
+        logInPage.logIn().click();
     }
 
     @AfterTest
-    public void tearDown()
-    {
+    public void tearDown() {
         driver.close();
         log.info("Driver Closed Successfully");
     }
