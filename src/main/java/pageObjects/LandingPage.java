@@ -23,8 +23,8 @@ public class LandingPage {
         return driver.findElement(logIn);
     }
 
-    public List<WebElement> getPopUpSize() {
-        return driver.findElements(popUp);
+    public int getPopUpSize() {
+        return driver.findElements(popUp).size();
     }
 
 

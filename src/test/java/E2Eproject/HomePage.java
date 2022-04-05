@@ -33,7 +33,7 @@ public class HomePage extends Repeatable {
         log.trace("Navigated to URL : " + getURL());
         //invoking Landing Page Methods/Objects
         LandingPage landingPage = new LandingPage(driver);
-        if (landingPage.getPopUpSize().size() > 0) {
+        if (landingPage.getPopUpSize() > 0) {
             landingPage.getPopUp().click();
         }
         landingPage.getLogIn().click();
