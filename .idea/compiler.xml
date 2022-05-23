@@ -8,6 +8,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="E2EProject" />
+        <module name="E2Eproject" />
       </profile>
     </annotationProcessing>
   </component>
