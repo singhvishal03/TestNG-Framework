@@ -56,13 +56,8 @@ public class Repeatable {
         properties.load(file);
         return properties.getProperty("url");
     }
-
-    public String getScreenshot(String testCaseName, WebDriver driver) throws IOException {
+    public  String getScreenshot(WebDriver driver) {
         TakesScreenshot screenshot = (TakesScreenshot) driver;
-        File source = screenshot.getScreenshotAs(OutputType.FILE);
-        String destinationFile = System.getProperty("user.dir") + "//reports//" + testCaseName + ".png";
-        FileUtils.copyFile(source, new File(destinationFile));
-
-        return destinationFile;
+        return screenshot.getScreenshotAs(OutputType.BASE64);
     }
 }

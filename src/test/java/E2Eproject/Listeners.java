@@ -2,6 +2,7 @@ package E2Eproject;
 
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.Status;
 import org.openqa.selenium.WebDriver;
 import org.testng.ITestContext;
@@ -32,7 +33,7 @@ public class Listeners extends HomePage implements ITestListener {
         extentTest.get().fail(result.getThrowable());
         try {
             WebDriver driver = (WebDriver) result.getTestClass().getRealClass().getDeclaredField("driver").get(result.getInstance());
-            extentTest.get().addScreenCaptureFromBase64String(getScreenshot(testCaseName, driver));
+            extentTest.get().fail(MediaEntityBuilder.createScreenCaptureFromBase64String(getScreenshot(driver)).build());
         } catch (Exception e) {
             e.printStackTrace();
         }
