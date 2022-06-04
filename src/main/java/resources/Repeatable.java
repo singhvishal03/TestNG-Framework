@@ -1,28 +1,30 @@
 package resources;
 
-import org.apache.commons.io.FileUtils;
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import io.github.bonigarcia.wdm.WebDriverManager;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterSuite;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeSuite;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.time.Duration;
 import java.util.Properties;
 
 public class Repeatable {
-    public WebDriver driver;
-    public Properties properties;
-    public FileInputStream file;
-    String configFile;
+    public static WebDriver driver;
+    private static Properties properties;
+    private static FileInputStream file;
+    private static String configFile;
 
+    @BeforeMethod
     public WebDriver initialiseDriver() throws IOException {
-
         configFile = System.getProperty("user.dir") + "//src//main//java//resources//data.properties";
         file = new FileInputStream(configFile);
         properties = new Properties();
@@ -31,7 +33,7 @@ public class Repeatable {
 
         //mvn test -DBrowser="browser name" (to run from maven )
         String browserName = System.getProperty("browser");
-        //String browserName = properties.getProperty("browser");
+//        String browserName = properties.getProperty("browser");
 
         if (browserName.equalsIgnoreCase("chrome")) {
             WebDriverManager.chromedriver().setup();
@@ -47,17 +49,36 @@ public class Repeatable {
         }
 
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
+        driver.manage().window().maximize();
+        driver.get(getURL());
         return driver;
     }
 
-    public String getURL() throws IOException {
+    public static String getURL() throws IOException {
         properties = new Properties();
         file = new FileInputStream(configFile);
         properties.load(file);
         return properties.getProperty("url");
     }
-    public  String getScreenshot(WebDriver driver) {
+
+    public static String getScreenshot(WebDriver driver) {
         TakesScreenshot screenshot = (TakesScreenshot) driver;
         return screenshot.getScreenshotAs(OutputType.BASE64);
     }
+
+    @AfterMethod
+    public void tearDown() {
+        driver.quit();
+    }
+
+    @BeforeSuite
+    public void setReport() throws IOException {
+        GenerateReport.getReportObject();
+    }
+
+    @AfterSuite
+    public void endReport() throws IOException {
+        GenerateReport.closeReport();
+    }
+
 }

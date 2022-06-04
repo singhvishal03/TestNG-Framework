@@ -1,10 +1,5 @@
 package E2Eproject;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.openqa.selenium.WebDriver;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import pageObjects.LandingPage;
@@ -14,24 +9,9 @@ import resources.Repeatable;
 import java.io.IOException;
 
 public class HomePage extends Repeatable {
-    public WebDriver driver;
-    private static final Logger log = LogManager.getLogger(HomePage.class.getName());
-
-
-    @BeforeTest
-    public void initialise() throws IOException {
-        driver = initialiseDriver();
-        log.fatal("Driver Initialised Successfully");
-        driver.manage().window().maximize();
-    }
-
-
     @Test(dataProvider = "getData")
     public void homePageNavigation(String userName, String password) throws IOException {
 
-        driver.get(getURL());
-        log.trace("Navigated to URL : " + getURL());
-        //invoking Landing Page Methods/Objects
         LandingPage landingPage = new LandingPage(driver);
         if (landingPage.getPopUpSize() > 0) {
             landingPage.getPopUp().click();
@@ -39,18 +19,12 @@ public class HomePage extends Repeatable {
         landingPage.getLogIn().click();
 
         //invoking Login Page Methods/Objects
-        log.trace("Logging in");
         LogInPage logInPage = new LogInPage(driver);
         logInPage.getEmail().sendKeys(userName);
         logInPage.getPassword().sendKeys(password);
         logInPage.logIn().click();
     }
 
-    @AfterTest
-    public void tearDown() {
-        driver.close();
-        log.info("Driver Closed Successfully");
-    }
 
     @DataProvider
     public Object[][] getData() {

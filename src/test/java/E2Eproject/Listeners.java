@@ -1,47 +1,55 @@
 package E2Eproject;
 
-import com.aventstack.extentreports.ExtentReports;
-import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.Status;
-import org.openqa.selenium.WebDriver;
+import com.aventstack.extentreports.markuputils.ExtentColor;
+import com.aventstack.extentreports.markuputils.Markup;
+import com.aventstack.extentreports.markuputils.MarkupHelper;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 import resources.GenerateReport;
+import resources.Repeatable;
 
-public class Listeners extends HomePage implements ITestListener {
-    public ExtentReports report;
-    public ExtentTest test;
-    ThreadLocal<ExtentTest> extentTest = new ThreadLocal<>();
+import java.util.Arrays;
+import static resources.Repeatable.getScreenshot;
 
+public class Listeners extends GenerateReport implements ITestListener {
     @Override
     public void onTestStart(ITestResult result) {
-        report = GenerateReport.getReportObject();
-        test = report.createTest(result.getMethod().getMethodName());
+        test = extentReport.createTest(result.getMethod().getMethodName());
         extentTest.set(test);
     }
 
     @Override
     public void onTestSuccess(ITestResult result) {
-        extentTest.get().log(Status.PASS, "Test Case passed successfully");
+        String logText = "<b> Test Method " + result.getMethod().getMethodName() + " passed successfully </b>";
+        Markup markup = MarkupHelper.createLabel(logText, ExtentColor.GREEN);
+        extentTest.get().log(Status.PASS, markup);
     }
 
     @Override
     public void onTestFailure(ITestResult result) {
-        String testCaseName = result.getMethod().getMethodName();
-        extentTest.get().fail(result.getThrowable());
+        String exceptionMessage = Arrays.toString(result.getThrowable().getStackTrace());
+        extentTest.get().fail("<details><summary><font color=red>" +
+                "Exception Occurred, Click to see details:" +
+                "</font></summary>" + exceptionMessage.replaceAll(",", "<br>") + "</details> \n");
+
         try {
-            WebDriver driver = (WebDriver) result.getTestClass().getRealClass().getDeclaredField("driver").get(result.getInstance());
-            extentTest.get().fail(MediaEntityBuilder.createScreenCaptureFromBase64String(getScreenshot(driver)).build());
+            extentTest.get().fail(MediaEntityBuilder.createScreenCaptureFromBase64String(getScreenshot(Repeatable.driver)).build());
         } catch (Exception e) {
             e.printStackTrace();
         }
+        String logText = "Test Method " + result.getMethod().getMethodName() + "failed";
+        Markup markup = MarkupHelper.createLabel(logText, ExtentColor.RED);
+        extentTest.get().log(Status.FAIL, markup);
     }
 
     @Override
     public void onTestSkipped(ITestResult result) {
-        ITestListener.super.onTestSkipped(result);
+        String logText = "<b> Test Method " + result.getMethod().getMethodName() + "skipped. </b>";
+        Markup markup = MarkupHelper.createLabel(logText, ExtentColor.YELLOW);
+        extentTest.get().log(Status.SKIP, markup);
     }
 
     @Override
@@ -61,6 +69,7 @@ public class Listeners extends HomePage implements ITestListener {
 
     @Override
     public void onFinish(ITestContext context) {
-        report.flush();
+        extentReport.flush();
     }
+
 }
