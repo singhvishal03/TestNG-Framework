@@ -1,2 +1,2 @@
 # TestNG-Framework
-TestNG framwork with Page Oject Model , Maven , Extent Reports , Log4j and Jenkins
+TestNG framwork with Page Oject Model , Maven , Extent Reports including screenshots on failure , Log4j and Jenkins
