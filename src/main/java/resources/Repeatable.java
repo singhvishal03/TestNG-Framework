@@ -20,17 +20,22 @@ import java.util.Properties;
 public class Repeatable {
     public static WebDriver driver;
     private static Properties properties;
-    private static FileInputStream file;
-    private static String configFile;
+
+    public static String getConfigData() {
+        return properties.getProperty("url");
+    }
+
+    public static String getScreenshot(WebDriver driver) {
+        TakesScreenshot screenshot = (TakesScreenshot) driver;
+        return screenshot.getScreenshotAs(OutputType.BASE64);
+    }
 
     @BeforeMethod
     public WebDriver initialiseDriver() throws IOException {
-        configFile = System.getProperty("user.dir") + "//src//main//java//resources//data.properties";
-        file = new FileInputStream(configFile);
+        String configFile = System.getProperty("user.dir") + "//src//main//java//resources//data.properties";
+        FileInputStream file = new FileInputStream(configFile);
         properties = new Properties();
         properties.load(file);
-
-
         //mvn test -DBrowser="browser name" (to run from maven )
         String browserName = System.getProperty("browser");
 //        String browserName = properties.getProperty("browser");
@@ -50,20 +55,8 @@ public class Repeatable {
 
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
         driver.manage().window().maximize();
-        driver.get(getURL());
+        driver.get(getConfigData());
         return driver;
-    }
-
-    public static String getURL() throws IOException {
-        properties = new Properties();
-        file = new FileInputStream(configFile);
-        properties.load(file);
-        return properties.getProperty("url");
-    }
-
-    public static String getScreenshot(WebDriver driver) {
-        TakesScreenshot screenshot = (TakesScreenshot) driver;
-        return screenshot.getScreenshotAs(OutputType.BASE64);
     }
 
     @AfterMethod
@@ -77,7 +70,7 @@ public class Repeatable {
     }
 
     @AfterSuite
-    public void endReport() throws IOException {
+    public void endReport() {
         GenerateReport.closeReport();
     }
 
