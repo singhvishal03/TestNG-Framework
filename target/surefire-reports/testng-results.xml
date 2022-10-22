@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results ignored="0" total="3" passed="3" failed="0" skipped="0">
+  <reporter-output>
+  </reporter-output>
+  <suite started-at="2022-10-22T19:13:47 IST" name="All Test Suite" finished-at="2022-10-22T19:14:12 IST" duration-ms="24620">
+    <groups>
+    </groups>
+    <test started-at="2022-10-22T19:13:47 IST" name="Validating Home Page Title" finished-at="2022-10-22T19:13:57 IST" duration-ms="9538">
+      <class name="E2Eproject.ValidateTitle">
+        <test-method is-config="true" signature="initialiseDriver()[pri:0, instance:E2Eproject.ValidateTitle@5c5eefef]" started-at="2022-10-22T19:13:47 IST" name="initialiseDriver" finished-at="2022-10-22T19:13:56 IST" duration-ms="9288" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- initialiseDriver -->
+        <test-method signature="validateTitle()[pri:0, instance:E2Eproject.ValidateTitle@5c5eefef]" started-at="2022-10-22T19:13:56 IST" name="validateTitle" finished-at="2022-10-22T19:13:56 IST" duration-ms="42" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- validateTitle -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:E2Eproject.ValidateTitle@5c5eefef]" started-at="2022-10-22T19:13:56 IST" name="tearDown" finished-at="2022-10-22T19:13:57 IST" duration-ms="175" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+      </class> <!-- E2Eproject.ValidateTitle -->
+    </test> <!-- Validating Home Page Title -->
+    <test started-at="2022-10-22T19:13:57 IST" name="Home Page" finished-at="2022-10-22T19:14:12 IST" duration-ms="14802">
+      <class name="E2Eproject.HomePage">
+        <test-method is-config="true" signature="setReport()[pri:0, instance:E2Eproject.HomePage@313ac989]" started-at="2022-10-22T19:13:47 IST" name="setReport" finished-at="2022-10-22T19:13:47 IST" duration-ms="234" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setReport -->
+        <test-method is-config="true" signature="initialiseDriver()[pri:0, instance:E2Eproject.HomePage@313ac989]" started-at="2022-10-22T19:13:57 IST" name="initialiseDriver" finished-at="2022-10-22T19:14:01 IST" duration-ms="4586" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- initialiseDriver -->
+        <test-method signature="homePageNavigation(java.lang.String,java.lang.String)[pri:0, instance:E2Eproject.HomePage@313ac989]" started-at="2022-10-22T19:14:01 IST" name="homePageNavigation" data-provider="getData" finished-at="2022-10-22T19:14:04 IST" duration-ms="2673" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[demo@gmail.com]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[demo]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- homePageNavigation -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:E2Eproject.HomePage@313ac989]" started-at="2022-10-22T19:14:04 IST" name="tearDown" finished-at="2022-10-22T19:14:04 IST" duration-ms="185" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+        <test-method is-config="true" signature="initialiseDriver()[pri:0, instance:E2Eproject.HomePage@313ac989]" started-at="2022-10-22T19:14:04 IST" name="initialiseDriver" finished-at="2022-10-22T19:14:09 IST" duration-ms="4475" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- initialiseDriver -->
+        <test-method signature="homePageNavigation(java.lang.String,java.lang.String)[pri:0, instance:E2Eproject.HomePage@313ac989]" started-at="2022-10-22T19:14:09 IST" name="homePageNavigation" data-provider="getData" finished-at="2022-10-22T19:14:12 IST" duration-ms="2689" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[demo2@gmail.com]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[demo2]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- homePageNavigation -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:E2Eproject.HomePage@313ac989]" started-at="2022-10-22T19:14:12 IST" name="tearDown" finished-at="2022-10-22T19:14:12 IST" duration-ms="189" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+        <test-method is-config="true" signature="endReport()[pri:0, instance:E2Eproject.HomePage@313ac989]" started-at="2022-10-22T19:14:12 IST" name="endReport" finished-at="2022-10-22T19:14:12 IST" duration-ms="7" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- endReport -->
+      </class> <!-- E2Eproject.HomePage -->
+    </test> <!-- Home Page -->
+  </suite> <!-- All Test Suite -->
+</testng-results>
